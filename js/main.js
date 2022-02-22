@@ -11,6 +11,16 @@ jQuery(document).ready(function($) {
         $(function() {
   
         function showSlide(n) {
+            //  for readmore
+            if(n==25)
+            {
+                $slides.css('transform', 'translateX(-' + window.innerWidth*3    + 'px)');
+                setTimeout(bind, 700);
+                $('nav a.active').removeClass('active');
+                $($('a')[1]).addClass('active');
+                return;
+            }
+
             // n is relative position from current slide
           
             // unbind event listener to prevent retriggering
@@ -26,6 +36,7 @@ jQuery(document).ready(function($) {
             setTimeout(bind, 700);
             
             // change active class on link
+            
             $('nav a.active').removeClass('active');
             $($('a')[currSlide]).addClass('active');
             
@@ -41,12 +52,20 @@ jQuery(document).ready(function($) {
             e.preventDefault();
         }
         
-        $('nav a, .main-btn a').click(function(e) {
+        $('nav a').click(function(e) {
             // When link clicked, find slide it points to
             var newslide = parseInt($(this).attr('href')[1]);
             // find how far it is from current slide
             var diff = newslide - currSlide - 1;
             showSlide(diff); // show that slide
+            e.preventDefault();
+        });
+        $('.main-btn a').click(function(e) {
+            // When link clicked, find slide it points to
+            var newslide = parseInt($(this).attr('href')[1]);
+            // find how far it is from current slide
+            var diff = newslide - currSlide - 1;
+            showSlide(25); // show that slide
             e.preventDefault();
         });
       
